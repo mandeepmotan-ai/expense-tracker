@@ -17,14 +17,14 @@ A clean, modern personal expense tracking web application built with Python Flas
 
 ## Tech Stack
 
-| Component | Technology |
-|-----------|------------|
-| Backend | Python Flask 3.1.3 |
-| WSGI | Werkzeug 3.1.6 |
-| Database | SQLite |
-| Testing | pytest 8.3.5, pytest-flask 1.3.0 |
-| Frontend | HTML5, CSS3, Vanilla JavaScript |
-| Fonts | DM Serif Display, DM Sans (Google Fonts) |
+| Component | Technology                               |
+| --------- | ---------------------------------------- |
+| Backend   | Python Flask 3.1.3                       |
+| WSGI      | Werkzeug 3.1.6                           |
+| Database  | SQLite                                   |
+| Testing   | pytest 8.3.5, pytest-flask 1.3.0         |
+| Frontend  | HTML5, CSS3, Vanilla JavaScript          |
+| Fonts     | DM Serif Display, DM Sans (Google Fonts) |
 
 ## Project Structure
 
@@ -60,12 +60,14 @@ expense-tracker/
 ### Setup
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd expense-tracker
    ```
 
 2. **Create a virtual environment**
+
    ```bash
    # Windows
    python -m venv venv
@@ -77,11 +79,13 @@ expense-tracker/
    ```
 
 3. **Install dependencies**
+
    ```bash
    pip install -r requirements.txt
    ```
 
 4. **Run the application**
+
    ```bash
    python app.py
    ```
@@ -91,38 +95,40 @@ expense-tracker/
 
 ## Routes
 
-| Route | Method | Description | Status |
-|-------|--------|-------------|--------|
-| `/` | GET | Landing page | Implemented |
-| `/register` | GET, POST | User registration | UI Complete |
-| `/login` | GET, POST | User login | UI Complete |
-| `/logout` | GET | User logout | To Implement |
-| `/profile` | GET | User profile | To Implement |
-| `/expenses/add` | GET, POST | Add new expense | To Implement |
-| `/expenses/<id>/edit` | GET, POST | Edit expense | To Implement |
-| `/expenses/<id>/delete` | POST | Delete expense | To Implement |
+| Route                   | Method    | Description       | Status       |
+| ----------------------- | --------- | ----------------- | ------------ |
+| `/`                     | GET       | Landing page      | Implemented  |
+| `/register`             | GET, POST | User registration | UI Complete  |
+| `/login`                | GET, POST | User login        | UI Complete  |
+| `/logout`               | GET       | User logout       | To Implement |
+| `/profile`              | GET       | User profile      | To Implement |
+| `/expenses/add`         | GET, POST | Add new expense   | To Implement |
+| `/expenses/<id>/edit`   | GET, POST | Edit expense      | To Implement |
+| `/expenses/<id>/delete` | POST      | Delete expense    | To Implement |
 
 ## Database Schema (Planned)
 
 The application uses SQLite for data persistence. The following tables are planned:
 
 ### Users
-| Column | Type | Description |
-|--------|------|-------------|
-| id | INTEGER | Primary key |
-| name | TEXT | User's full name |
-| email | TEXT | Unique email address |
-| password_hash | TEXT | Hashed password |
+
+| Column        | Type    | Description          |
+| ------------- | ------- | -------------------- |
+| id            | INTEGER | Primary key          |
+| name          | TEXT    | User's full name     |
+| email         | TEXT    | Unique email address |
+| password_hash | TEXT    | Hashed password      |
 
 ### Expenses
-| Column | Type | Description |
-|--------|------|-------------|
-| id | INTEGER | Primary key |
-| user_id | INTEGER | Foreign key to Users |
-| category | TEXT | Expense category (Bills, Food, Health, Transport, etc.) |
-| amount | REAL | Amount in Rupees |
-| date | DATE | Transaction date |
-| description | TEXT | Optional description |
+
+| Column      | Type    | Description                                             |
+| ----------- | ------- | ------------------------------------------------------- |
+| id          | INTEGER | Primary key                                             |
+| user_id     | INTEGER | Foreign key to Users                                    |
+| category    | TEXT    | Expense category (Bills, Food, Health, Transport, etc.) |
+| amount      | REAL    | Amount in Rupees                                        |
+| date        | DATE    | Transaction date                                        |
+| description | TEXT    | Optional description                                    |
 
 ## Configuration
 
@@ -170,15 +176,6 @@ For production deployment:
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-## Screenshots
-
-### Landing Page
-The landing page features a hero section with a spending visualization mockup and feature highlights.
-
-### Authentication
-- Clean registration form with name, email, and password fields
-- Login form with email and password
 
 ## Roadmap
 
