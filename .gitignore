@@ -6,3 +6,8 @@ __pycache__/
 .env
 .DS_Store
 .claude/plans/
+uv.lock
+pyproject.toml
+.vs/
+.python-version
+prompts.txt
