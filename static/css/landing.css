@@ -87,6 +87,7 @@
     border: 1.5px solid #0f0f0f;
     transition: all 0.2s;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .btn-hero-ghost:hover {
@@ -202,3 +203,62 @@
 .dash-fill-orange { background: #e67e22; }
 .dash-fill-blue { background: #5b8db8; }
 .dash-fill-purple { background: #8e6bab; }
+
+/* ------------------------------------------------------------------ */
+/* Modal                                                                */
+/* ------------------------------------------------------------------ */
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.modal-overlay.modal-open {
+    display: flex;
+}
+
+.modal-content {
+    position: relative;
+    background: #000;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+}
+
+.modal-close {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.25rem;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.modal-close:hover { opacity: 1; }
+
+.modal-video {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.modal-video iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}

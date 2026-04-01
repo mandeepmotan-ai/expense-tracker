@@ -44,7 +44,7 @@ expense-tracker/
 │   └── login.html              # User login page
 ├── static/
 │   ├── css/
-│   │   └── style.css           # Complete styling (~530 lines)
+│   │   └── landing.css           # Complete styling (~530 lines)
 │   └── js/
 │       └── main.js             # Client-side JavaScript
 └── tests/                      # Pytest test suite (to implement)
