@@ -19,7 +19,9 @@
 }
 
 .hero-badge {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    min-width: 1.5em;
     background: #e8f5ed;
     color: #1a7a3a;
     font-size: 0.8rem;
@@ -28,6 +30,27 @@
     padding: 0.4rem 1rem;
     border-radius: 999px;
     margin-bottom: 2rem;
+}
+
+.hero-badge-dot {
+    margin-right: 0.4em;
+}
+
+.hero-badge-text {
+    opacity: 1;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.typewriter-cursor {
+    display: inline-block;
+    margin-left: 1px;
+    animation: cursor-blink 0.9s step-end infinite;
+}
+
+@keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 .hero-title {
