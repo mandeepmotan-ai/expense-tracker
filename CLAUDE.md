@@ -1,5 +1,7 @@
 # CLAUDE.md
 
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 ## Project overview
 
 Spendly is a lightweight personal expense tracker built with Flask and SQLite.
@@ -8,20 +10,27 @@ Spendly is a lightweight personal expense tracker built with Flask and SQLite.
 
 ## Architecture
 
+```
 spendly/
-├── app.py # All routes – single file, no blueprints
+├── app.py                      # All routes – single file, no blueprints
 ├── database/
-│ └── db.py # SQLite helpers: get_db(), init_db(), seed_db()
+│   ├── __init__.py             # Package marker
+│   └── db.py                   # SQLite helpers: get_db(), init_db(), seed_db()
 ├── templates/
-│ ├── base.html # Shared layout – all templates must extend this
-│ └── \*.html # One template per page
+│   ├── base.html               # Shared layout – all templates must extend this
+│   ├── landing.html
+│   ├── login.html
+│   ├── register.html
+│   ├── terms.html
+│   └── privacy.html
 ├── static/
-│ ├── css/
-│ │ ├── style.css # Global styles
-│ │ └── landing.css # Landing-page-only styles
-│ └── js/
-│ └── main.js # Vanilla JS only
+│   ├── css/
+│   │   ├── style.css           # Global styles
+│   │   └── landing.css         # Landing-page-only styles
+│   └── js/
+│       └── main.js             # Vanilla JS only
 └── requirements.txt
+```
 
 ---
 
@@ -51,6 +60,7 @@ spendly/
 - **Vanilla JS only** – no React, no jQuery, no npm packages
 - **No new pip packages** – work within `requirements.txt` as-is unless explicitly told otherwise
 - **Python 3.10+ assumed** – f-strings and `match` statements are fine
+- **`SECRET_KEY` is required** – set `app.secret_key` before production; sessions depend on it
 
 ---
 
@@ -76,6 +86,7 @@ pytest -k "test_name"
 
 # Run tests with output visible
 pytest -s
+```
 
 ---
 
@@ -86,6 +97,8 @@ pytest -s
 | `GET /` | Implemented — renders `landing.html` |
 | `GET /register` | Implemented — renders `register.html` |
 | `GET /login` | Implemented — renders `login.html` |
+| `GET /terms` | Implemented — renders `terms.html` |
+| `GET /privacy` | Implemented — renders `privacy.html` |
 | `GET /logout` | Stub — Step 3 |
 | `GET /profile` | Stub — Step 4 |
 | `GET /expenses/add` | Stub — Step 7 |
@@ -97,13 +110,11 @@ pytest -s
 ---
 
 ## Warnings and things to avoid
-💡
+
 - **Never use raw string returns for stub routes** once a step is implemented – always render a template
 - **Never hardcode URLs** in templates – always use `url_for()`
 - **Never put DB logic in route functions** – it belongs in `database/db.py`
 - **Never install new packages** mid-feature without flagging it – keep `requirements.txt` in sync
 - **Never use JS frameworks** – the frontend is intentionally vanilla
-- **`database/db.py` is currently empty** – do not assume helpers exist until the step that implements them
 - **FK enforcement is manual** – SQLite foreign keys are off by default; `get_db()` must run `PRAGMA foreign_keys = ON` on every connection
 - The app runs on **port 5001**, not the Flask default 5000 – don't change this
-```
