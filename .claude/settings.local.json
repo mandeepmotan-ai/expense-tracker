@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(timeout 5 python app.py)",
+      "Bash(sqlite3 spendly.db \"SELECT name, email FROM users;\")",
+      "Bash(sqlite3 spendly.db \"SELECT id, user_id, amount, category, date FROM expenses;\")",
+      "Bash(pytest:*)",
+      "Bash(python:*)"
+    ]
+  }
+}
