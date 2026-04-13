@@ -1,12 +1,29 @@
-from flask import Flask, render_template, request, redirect, abort
-from database.db import get_db, init_db, seed_db, register_user
+from flask import Flask, render_template, request, redirect, abort, session, g
+from werkzeug.security import check_password_hash
+from database.db import get_db, init_db, seed_db, register_user, get_user_by_email
 
 app = Flask(__name__)
+app.secret_key = "spendly-dev-secret-key-change-in-production"
 
 
 # ------------------------------------------------------------------ #
 # Routes                                                              #
 # ------------------------------------------------------------------ #
+
+def logged_in_user():
+    """Return the current user_id from session, or None if not logged in."""
+    return session.get("user_id")
+
+
+@app.before_request
+def set_current_user():
+    g.user_id = logged_in_user()
+
+
+@app.teardown_request
+def clear_current_user(exception=None):
+    g.pop("user_id", None)
+
 
 @app.route("/")
 def landing():
@@ -15,6 +32,9 @@ def landing():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    if logged_in_user():
+        return redirect("/")
+
     if request.method == "GET":
         return render_template("register.html")
 
@@ -37,9 +57,30 @@ def register():
     return redirect("/login")
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+    if logged_in_user():
+        return redirect("/")
+
+    if request.method == "GET":
+        return render_template("login.html")
+
+    # POST
+    email = request.form.get("email", "").strip().lower()
+    password = request.form.get("password", "")
+
+    if not email or not password:
+        return render_template("login.html", error="Email and password are required.")
+
+    user = get_user_by_email(email)
+    if user is None:
+        return render_template("login.html", error="Invalid email or password.")
+
+    if not check_password_hash(user["password_hash"], password):
+        return render_template("login.html", error="Invalid email or password.")
+
+    session["user_id"] = user["id"]
+    return redirect("/profile")
 
 
 @app.route("/terms")
@@ -58,7 +99,8 @@ def privacy():
 
 @app.route("/logout")
 def logout():
-    return "Logout — coming in Step 3"
+    session.clear()
+    return redirect("/")
 
 
 @app.route("/profile")
