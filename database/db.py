@@ -39,6 +39,18 @@ def init_db():
     conn.close()
 
 
+def get_user_by_email(email):
+    """Look up a user by email. Returns a sqlite3.Row or None."""
+    conn = get_db()
+    cursor = conn.execute(
+        "SELECT id, name, email, password_hash FROM users WHERE email = ?",
+        (email,)
+    )
+    user = cursor.fetchone()
+    conn.close()
+    return user
+
+
 def register_user(name, email, password):
     """Create a new user with hashed password. Returns user_id on success, None on failure."""
     conn = get_db()
