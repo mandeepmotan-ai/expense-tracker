@@ -39,6 +39,23 @@ def init_db():
     conn.close()
 
 
+def register_user(name, email, password):
+    """Create a new user with hashed password. Returns user_id on success, None on failure."""
+    conn = get_db()
+    try:
+        cursor = conn.execute(
+            "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)",
+            (name, email, generate_password_hash(password))
+        )
+        conn.commit()
+        user_id = cursor.lastrowid
+        conn.close()
+        return user_id
+    except sqlite3.IntegrityError:
+        conn.close()
+        return None
+
+
 def seed_db():
     conn = get_db()
     cursor = conn.execute("SELECT COUNT(*) FROM users")
