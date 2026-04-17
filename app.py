@@ -105,7 +105,38 @@ def logout():
 
 @app.route("/profile")
 def profile():
-    return "Profile page — coming in Step 4"
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("login"))
+
+    context = {
+        "user": {
+            "name": "Aria Novak",
+            "email": "aria.novak@example.com",
+            "initials": "AN",
+            "member_since": "January 2024",
+        },
+        "stats": {
+            "total_spent": 3847.50,
+            "transaction_count": 42,
+            "top_category": "Bills",
+        },
+        "transactions": [
+            {"date": "Apr 14, 2026", "description": "Electricity bill",       "category": "Bills",         "amount": 120.00},
+            {"date": "Apr 10, 2026", "description": "Whole Foods groceries",  "category": "Food",          "amount": 67.40},
+            {"date": "Apr 8, 2026",  "description": "Netflix subscription",   "category": "Entertainment", "amount": 15.99},
+            {"date": "Apr 5, 2026",  "description": "Uber ride",             "category": "Transport",     "amount": 22.50},
+            {"date": "Apr 2, 2026",  "description": "Gym membership",        "category": "Health",       "amount": 45.00},
+        ],
+        "categories": [
+            {"name": "Bills",         "amount": 420.00, "pct": 55},
+            {"name": "Food",          "amount": 380.00, "pct": 40},
+            {"name": "Transport",     "amount": 150.00, "pct": 20},
+            {"name": "Entertainment", "amount": 80.00,  "pct": 12},
+            {"name": "Health",        "amount": 45.00,  "pct": 8},
+        ],
+    }
+    return render_template("profile.html", **context)
 
 
 @app.route("/expenses/add")
